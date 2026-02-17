@@ -79,3 +79,17 @@ cd crate-codex-skills
 1. `list_project_tasks`
 2. `get_session_continuity`
 3. `upsert_session_continuity`
+
+## 5. outbox 再送（任意）
+
+snapshot 送信失敗で `~/.codex/state/crate-snapshot-outbox.ndjson` に pending が残った場合は、次で再送できます。
+
+```bash
+~/.codex/skills/crate/crate-create-snapshot/scripts/replay_snapshot_outbox.sh
+```
+
+事前確認のみの場合:
+
+```bash
+~/.codex/skills/crate/crate-create-snapshot/scripts/replay_snapshot_outbox.sh --dry-run
+```

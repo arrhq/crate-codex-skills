@@ -17,6 +17,7 @@
 ## 手順
 
 1. `conversation_slice` に `checkpoint_label` を含める
+   - 記法は `context_label: checkpoint:<note>:<work_slug>` を使う（`context_label=...` は使わない）
 2. `create_snapshot` を送信する
 3. `create_context` で `checkpoint_label` を含む query を実行する
 4. Top3 で `checkpoint_label` を確認できれば pass
@@ -61,6 +62,7 @@
 - 次ターン開始時に outbox を先に確認し、pending があれば古い順に再送する。
 - 再送前に outbox を `session_id + checkpoint_label` 単位で重複排除する。
 - 再送成功時は該当行を outbox から削除する。
+- 推奨コマンド: `~/.codex/skills/crate/crate-create-snapshot/scripts/replay_snapshot_outbox.sh`
 
 ## Outbox後片付け
 

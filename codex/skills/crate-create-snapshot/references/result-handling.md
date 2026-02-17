@@ -52,3 +52,4 @@
 2. 再送開始前に outbox を重複排除する（キー: `session_id + checkpoint_label`）。
 3. 再送完了後、outbox 行数が `0` なら `crate-snapshot-outbox.ndjson.resolved-*.bak` を削除する。
 4. 解消済みバックアップを恒久的に残さない。
+5. 再送は `~/.codex/skills/crate/crate-create-snapshot/scripts/replay_snapshot_outbox.sh` を優先する。

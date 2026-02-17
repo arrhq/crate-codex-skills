@@ -17,6 +17,7 @@ description: Crate Snapshot を節目で自動送信する運用スキル。`$cr
 - outbox 再送時に `crate-snapshot-outbox.ndjson.resolved-*.bak` を作る場合は一時退避用途に限定し、解消確認後に削除して残置しない。
 - outbox へ pending を書く前に、同一 `session_id + checkpoint_label` の既存行を確認し、重複追記しない（upsert 扱い）。
 - `checkpoint gate` が失敗した場合、outbox 退避前に `reindex_snapshots(limit=50)` を1回実行して再確認する。
+- セッション開始時に outbox が非空なら、まず `scripts/replay_snapshot_outbox.sh` で再送を実行してから新規チェックポイントへ進む。
 
 ## Trigger
 
@@ -36,9 +37,11 @@ description: Crate Snapshot を節目で自動送信する運用スキル。`$cr
 1. `checkpoint_label` を決める（必須）
 - 形式: `checkpoint:<note>:<work_slug>`
 - 例: `checkpoint:tests_passed:search-local-first`
+- `<note>` は `spec_finalized` / `major_implementation_completed` / `tests_passed` / `deliverable_shared` / `pivot` のいずれかを使う。
 
 2. `conversation_slice` に最低1つの `context_label` として `checkpoint_label` を含める
 - 推奨: 追加で `task:...` / `spec:...` も入れる
+- 記法は必ず `context_label: checkpoint:...` を使う（`context_label=...` は使わない）
 
 3. `create_snapshot` を実行する
 - note は checkpoint に対応する値を使う（`spec_finalized` / `major_implementation_completed` / `tests_passed` / `deliverable_shared` / `pivot` など）
@@ -59,6 +62,14 @@ description: Crate Snapshot を節目で自動送信する運用スキル。`$cr
 - `snapshot skipped ... reason=no_new_messages` も無言。
 - `snapshot ingest failed` のときだけ1行通知し、1回だけ再試行する。
 - ユーザーが状態確認したときだけ結果を返す。
+
+## Outbox Replay
+
+- 実行コマンド（通常）:
+  - `~/.codex/skills/crate/crate-create-snapshot/scripts/replay_snapshot_outbox.sh`
+- 事前確認のみ:
+  - `~/.codex/skills/crate/crate-create-snapshot/scripts/replay_snapshot_outbox.sh --dry-run`
+- このスクリプトは outbox を正規化して重複排除し、`create_snapshot` を直接再送し、成功行を outbox から削除する。
 
 ## Minimum Contract
 

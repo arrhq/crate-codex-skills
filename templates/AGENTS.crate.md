@@ -23,6 +23,7 @@
 
 - 仕様確定 / 主要実装完了 / テスト完了 / 成果公開 / 方針転換で `create_snapshot` を実行する。
 - ユーザーが `$create-snapshot` を入力した場合は `ingest_turn` を実行する。
+- 次ターン開始時の再送は `~/.codex/skills/crate/crate-create-snapshot/scripts/replay_snapshot_outbox.sh` を優先し、成功行を outbox から削除する。
 
 ### Context
 
