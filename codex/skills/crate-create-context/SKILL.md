@@ -10,7 +10,7 @@ description: Crate の履歴文脈を必要時だけ取得する運用スキル�
 - 常時注入はしないが、調査/計画/Web検索タスクでは `create_context` を必須で実行する。
 - セッション開始/再開では `get_session_continuity` を先に実行し、足りない履歴のみ `create_context` で補う。
 - 回答は要点優先。生ログや長文JSONをそのまま貼らない。
-- `create_snapshot` と同じ MCP URL（`project_id + ingest_token`）で使う。
+- `create_snapshot` と同じ MCP 接続（`project_id` + `x-crate-ingest-token` ヘッダ）で使う。
 - 回答時は `results` の score だけでなく evidence（`context_label` / URL / User request）を根拠として使う。PR/Issueは任意。
 - checkpoint gate 検証クエリ（`checkpoint:<note>:<work_slug>`）では、Top3 内に同一 label があるかを必ず確認する。
 

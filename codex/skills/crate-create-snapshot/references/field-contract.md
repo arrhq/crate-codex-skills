@@ -4,10 +4,11 @@
 
 推奨MCP URL:
 
-`https://<crate-domain>/api/mcp?project_id=<project_uuid>&ingest_token=<project_ingest_token>`
+`https://<crate-domain>/api/mcp?project_id=<project_uuid>`
 
 - `project_id`: project UUID
-- `ingest_token`: `snapshot:write` 権限付きトークン
+- `x-crate-ingest-token`: `snapshot:write` 権限付きトークンをヘッダで指定
+- `ingest_token` / `token` クエリ認証は廃止済み
 
 URLに `project_id` が含まれる場合、tool引数の `project_id` は省略可。
 

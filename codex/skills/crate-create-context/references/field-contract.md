@@ -4,7 +4,12 @@
 
 `create_snapshot` と同じ MCP 接続を使う。
 
-`https://<crate-domain>/api/mcp?project_id=<project_uuid>&ingest_token=<project_ingest_token>`
+`https://<crate-domain>/api/mcp?project_id=<project_uuid>`
+
+推奨ヘッダ:
+
+- `x-crate-ingest-token: <project_token>`
+- `ingest_token` / `token` クエリ認証は廃止済み
 
 ## Tool Arguments
 
