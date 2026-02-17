@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "crate": {
+      "type": "http",
+      "url": "https://crateio.com/api/mcp?project_id=<project_id>",
+      "headers": {
+        "x-crate-ingest-token": "<project_token>"
+      }
+    }
+  }
+}
