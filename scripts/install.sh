@@ -5,11 +5,21 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 SKILLS_DIR="${CODEX_HOME}/skills"
-TARGET_SKILL_DIR="${SKILLS_DIR}/crate"
 SNIPPET_SOURCE="${REPO_ROOT}/templates/AGENTS.crate.md"
 AGENTS_FILE="${CODEX_HOME}/AGENTS.md"
 
 append_agents=false
+
+SKILLS=(
+  crate
+  crate-dev-ops
+  crate-pr-ops
+  crate-continuity-ledger
+  crate-create-context
+  crate-create-snapshot
+  crate-task-ops
+  crate-session-ops
+)
 
 usage() {
   cat <<USAGE
@@ -39,10 +49,26 @@ for arg in "$@"; do
 done
 
 mkdir -p "$SKILLS_DIR"
-rm -rf "$TARGET_SKILL_DIR"
-cp -R "${REPO_ROOT}/codex/skills/crate" "$TARGET_SKILL_DIR"
 
-echo "Installed skill: ${TARGET_SKILL_DIR}"
+installed=()
+for skill in "${SKILLS[@]}"; do
+  src="${REPO_ROOT}/codex/skills/${skill}"
+  dst="${SKILLS_DIR}/${skill}"
+
+  if [[ ! -d "$src" ]]; then
+    echo "Missing skill directory: ${src}" >&2
+    exit 1
+  fi
+
+  rm -rf "$dst"
+  cp -R "$src" "$dst"
+  installed+=("$skill")
+done
+
+echo "Installed crate-related skills to ${SKILLS_DIR}:"
+for skill in "${installed[@]}"; do
+  echo "- ${skill}"
+done
 
 if [[ "$append_agents" == true ]]; then
   mkdir -p "$CODEX_HOME"

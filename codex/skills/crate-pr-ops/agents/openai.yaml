@@ -1,0 +1,6 @@
+interface:
+  display_name: "Crate PR Ops"
+  short_description: "PR時のCrate運用を適用する"
+  icon_small: "./assets/crate-icon.png"
+  icon_large: "./assets/crate-icon.png"
+  default_prompt: "$crate-pr-ops を使って、PR作業の continuity/task/snapshot 運用を適用して進める。"

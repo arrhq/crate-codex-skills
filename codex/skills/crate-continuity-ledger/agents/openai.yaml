@@ -1,0 +1,5 @@
+interface:
+  display_name: "Crate Continuity Ledger"
+  short_description: "Crate開発の継続状態を維持する"
+  icon_small: "./assets/crate-icon.png"
+  icon_large: "./assets/crate-icon.png"

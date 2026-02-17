@@ -1,0 +1,6 @@
+interface:
+  display_name: "Crate Dev Ops"
+  short_description: "開発時のCrate運用を適用する"
+  icon_small: "./assets/crate-icon.png"
+  icon_large: "./assets/crate-icon.png"
+  default_prompt: "$crate-dev-ops を使って、実装作業の continuity/task/snapshot 運用を適用して進める。"

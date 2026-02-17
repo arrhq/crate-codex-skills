@@ -1,19 +1,32 @@
 # crate-codex-skills
 
-Crate を Codex で運用開始するための公開サンプルです。
+Crate を Codex で運用開始するための公開導入セットです。
 
-このリポジトリには次の 3 点を含みます。
+このリポジトリには次を含みます。
 
-- Crate 用 skill のサンプル実装
-- ユーザー環境へ skill を配置するインストールスクリプト
-- `AGENTS.md` へ追記するためのテンプレート
+- crate 系 skills（`crate` と `crate-*`）
+- 導入スクリプト（`scripts/install.sh`）
+- `AGENTS.md` 追記テンプレート
+- MCP 設定サンプル
 
 ## リポジトリ構成
 
-- `codex/skills/crate/SKILL.md`: Crate 運用用 skill
-- `scripts/install.sh`: skill インストール補助スクリプト
+- `codex/skills/README.md`: crate系 skill 一覧
+- `codex/skills/*/SKILL.md`: 各 skill 実体
+- `scripts/install.sh`: crate系 skills 一括導入スクリプト
 - `templates/AGENTS.crate.md`: `AGENTS.md` 追記テンプレート
 - `examples/mcp-config.json`: MCP 設定サンプル
+
+## 導入される skill セット
+
+- `crate`
+- `crate-dev-ops`
+- `crate-pr-ops`
+- `crate-continuity-ledger`
+- `crate-create-context`
+- `crate-create-snapshot`
+- `crate-task-ops`
+- `crate-session-ops`
 
 ## 1. MCP 接続設定
 
@@ -33,17 +46,12 @@ Crate を Codex で運用開始するための公開サンプルです。
 }
 ```
 
-- `project_id`: Crate の project UUID
-- `project_token`: Crate で発行した token
+## 2. Skill 導入
 
-## 2. Crate 用 skill を導入
-
-### 方法A: Codex にインストール依頼（推奨）
-
-次をそのまま Codex に渡してください。
+### 方法A: Codex に導入依頼（推奨）
 
 ```txt
-https://github.com/arrhq/crate-codex-skills/tree/main/codex/skills/crate を参照して、crate skill をインストールしてください。
+https://github.com/arrhq/crate-codex-skills/tree/main/codex/skills/README.md を確認して、crate系スキルをインストールしてください。
 ```
 
 ### 方法B: スクリプトで導入
@@ -54,15 +62,15 @@ cd crate-codex-skills
 ./scripts/install.sh
 ```
 
-`AGENTS.md` への追記まで自動化する場合:
+`AGENTS.md` 追記まで自動化する場合:
 
 ```bash
 ./scripts/install.sh --append-agents
 ```
 
-## 3. `AGENTS.md` へ追記
+## 3. `AGENTS.md` 追記
 
-手動で追記する場合は `templates/AGENTS.crate.md` を既存の `AGENTS.md` にコピーしてください。
+テンプレート: `templates/AGENTS.crate.md`
 
 ## 4. 動作確認
 
@@ -71,9 +79,3 @@ cd crate-codex-skills
 1. `list_project_tasks`
 2. `get_session_continuity`
 3. `upsert_session_continuity`
-
-## セキュリティ注意
-
-- token は最小権限で発行してください
-- token を Git 管理しないでください
-- `AGENTS.md` は運用ルールの正本として PR レビュー対象にしてください

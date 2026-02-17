@@ -1,5 +1,10 @@
 ## Crate
 
+### 開発/PR運用の互換ルール
+
+- Crate環境の開発実装では `crate-dev-ops` を併用する。
+- Crate環境のPR作成/更新/レビュー反復/マージでは `crate-pr-ops` を併用する。
+
 ### Continuity
 
 - セッション開始/再開時に `get_session_continuity` を実行する。

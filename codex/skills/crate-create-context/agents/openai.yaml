@@ -1,0 +1,6 @@
+interface:
+  display_name: "Crate Create Context"
+  short_description: "根拠付きでCrate履歴文脈を再構成する"
+  icon_small: "./assets/crate-icon.png"
+  icon_large: "./assets/crate-icon.png"
+  default_prompt: "$crate-create-context を使って関連snapshotを取得し、日本語で要点回答する。回答には必ず根拠アンカー（context_label/URL/user request）を含める。"
